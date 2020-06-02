@@ -13,7 +13,6 @@ if(itIsMethod('post')){
 
 		login_user($_POST['username'] , $_POST['password']);
 
-
 	}else {
 		redirect('/cms/login.php');
 	}
