@@ -35,7 +35,6 @@ header('location:users.php');
 </div>
 
 
-
 <div class="form-group">
 <label for="author">Lastname </label>
 <input type="text" class="form-control" name="user_lastname" required>
