@@ -58,18 +58,17 @@ if(isset($_GET['edit'])){
 <?php   else:?>
  <div class="col-xs-6">
 <?php   endif;?>
-                       
-                        <table class='table table-hover'>
-                            <thead>
-                                <tr>
-                                    <th>Id</th>
-                                    
-                                    <th>Category Title</th>
-                                </tr>
-                            </thead>
-                            <tbody>
 
-                            <?php  
+<table class='table table-hover'>
+    <thead>
+        <tr>
+            <th>Id</th>
+            
+            <th>Category Title</th>
+        </tr>
+    </thead>
+    <tbody>
+    <?php  
 
 
 select_categories() ;
