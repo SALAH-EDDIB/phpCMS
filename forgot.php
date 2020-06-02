@@ -1,8 +1,5 @@
 <?php  include "includes/db.php"; ?>
 <?php  include "includes/header.php"; ?>
-
-
-
 <?php
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\SMTP;
@@ -10,7 +7,7 @@ use PHPMailer\PHPMailer\Exception;
 
 
 require './vendor/autoload.php';
-require './classes/config.php';
+
 
 
 
@@ -40,14 +37,30 @@ if(itIsMethod('post') ){
         $mail = new PHPMailer(true) ;
 
 
-        $mail->SMTPDebug = SMTP::DEBUG_SERVER;                    
+        // $mail->SMTPDebug = SMTP::DEBUG_SERVER;                    
         $mail->isSMTP();                                          
         $mail->Host       = Config::SMTP_HOST;                    
         $mail->SMTPAuth   = true;                                 
         $mail->Username   = Config::SMTP_USER;                    
         $mail->Password   = Config::SMTP_PASSWORD;                
         $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;       
-        $mail->Port       = Config::SMTP_PORT;                    
+        $mail->Port       = Config::SMTP_PORT;    
+        $mail->isHTML(true);
+        
+        $mail->setFrom('salaheddib.66@gmail.com' , 'salah eddib');
+        $mail->addAddress($email); 
+
+        $mail->Subject ='changing password';
+        $mail->Body ='<p>Click to change your password
+        <a href="http://localhost/cms/reset.php?email='.$email.'&token='.$token.'">http://localhost/cms/reset.php?email='.$email.'&token='.$token.'"</a>
+        </p>';
+
+
+        if($mail->send()){
+            $emailSend = true ;
+        }else{
+            echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
+        }
 
        }
 
@@ -74,7 +87,7 @@ if(itIsMethod('post') ){
                     <div class="panel-body">
                         <div class="text-center">
 
-
+                    <?php if(!isset($emailSend)): ?>
                                 <h3><i class="fa fa-lock fa-4x"></i></h3>
                                 <h2 class="text-center">Forgot Password?</h2>
                                 <p>You can reset your password here.</p>
@@ -101,6 +114,9 @@ if(itIsMethod('post') ){
                                 </div><!-- Body-->
 
                         </div>
+                        <?php else: ?>
+                        <h2>Please check your email</h2>
+                        <?php endif; ?>
                     </div>
                 </div>
             </div>
