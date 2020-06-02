@@ -35,8 +35,6 @@ if(!empty($username) && !empty($email) && !empty($password) ){
     $password = mysqli_real_escape_string($connection , $password );
 
 
-
-
 $password = password_hash($password , PASSWORD_BCRYPT , array('cost' => 12));
 
 $query = "insert into users( user_firstname , user_lastname ,  user_name,   user_email, user_password, user_role) ";
