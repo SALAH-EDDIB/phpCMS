@@ -12,7 +12,7 @@ include "includes/navigation.php"
     <!-- Blog Entries Column -->
     <div class="col-md-8">
     
-   
+
 
   <?php
 
@@ -47,7 +47,7 @@ if(mysqli_num_rows($result) == 0 ){
 }else{
 
   ?>
-   <h1 class="page-header">
+  <h1 class="page-header">
         Page Heading
         <small>Secondary Text</small>
       </h1>
@@ -64,10 +64,6 @@ while($row = mysqli_fetch_assoc($result)){
   $post_content = substr($row['post_content'],0,200) ;
 
 
-
-
-
- 
 ?>
 
     
