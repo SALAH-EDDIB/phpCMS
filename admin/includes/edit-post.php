@@ -74,8 +74,6 @@ header('location: posts.php');
 <label for="title">Post category </label>
 <select name="post_category_id"   class='form-control'  id="">
 
-
-
 <?php
 
 $query = "select * from categories";
