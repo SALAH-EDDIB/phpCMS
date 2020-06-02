@@ -14,7 +14,21 @@ if(itIsMethod('post') ){
 
     if(isset($_POST['email'])){
 
-$email =  $_POST['email'] ;
+        $email =  $_POST['email'] ;
+
+        $length = 50;
+
+        $token = bin2hex(openssl_random_pseudo_bytes($length));
+
+       if (email_exists($email)) {
+        
+
+        $stmt =   mysqli_prepare($connection , "UPDATE users set token='{$token}' where user_email= ?");
+        mysqli_stmt_bind_param($stmt , "s" , $email ) ;
+        mysqli_stmt_execute($stmt);
+        mysqli_stmt_close($stmt);
+
+       }
 
     }
 
