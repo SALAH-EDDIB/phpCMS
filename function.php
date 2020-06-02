@@ -56,13 +56,15 @@ function email_exist($email){
 }
 
 
-function itIsMethod($method=null){
+function itIsMethod($method){
 
     if($_SERVER['REQUEST_METHOD'] == strtoupper($method)){
 
         return true ;
+    }else{
+         return false ;
     }
-    return false ;
+   
 }
 
 function isLoggedIn(){
