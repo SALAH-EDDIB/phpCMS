@@ -80,9 +80,6 @@ while($row = mysqli_fetch_assoc($result)){
 <?php   endif;?>
         
 
-    
-
-
 
 <div class="form-group">
 <label for="author">Post Image </label>
