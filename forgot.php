@@ -4,6 +4,15 @@
 
 
 <?php
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\SMTP;
+use PHPMailer\PHPMailer\Exception;
+
+
+require './vendor/autoload.php';
+require './classes/config.php';
+
+
 
 if(!isset($_GET['forgot'])|| !$_GET['forgot'] ){
 
@@ -27,6 +36,18 @@ if(itIsMethod('post') ){
         mysqli_stmt_bind_param($stmt , "s" , $email ) ;
         mysqli_stmt_execute($stmt);
         mysqli_stmt_close($stmt);
+
+        $mail = new PHPMailer(true) ;
+
+
+        $mail->SMTPDebug = SMTP::DEBUG_SERVER;                    
+        $mail->isSMTP();                                          
+        $mail->Host       = Config::SMTP_HOST;                    
+        $mail->SMTPAuth   = true;                                 
+        $mail->Username   = Config::SMTP_USER;                    
+        $mail->Password   = Config::SMTP_PASSWORD;                
+        $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;       
+        $mail->Port       = Config::SMTP_PORT;                    
 
        }
 
