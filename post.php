@@ -6,6 +6,47 @@ include "includes/header.php"
 include "includes/navigation.php"
 ?>
 
+  <?php
+if(isset($_POST['liked'])){
+
+$post_id = $_POST['postId'];
+$user_id = $_POST['userId'];
+
+
+$query = "SELECT * from posts where post_id= $post_id";
+$result= mysqli_query($connection , $query);
+$post = mysqli_fetch_assoc($result);
+$likes = $post['likes'];
+
+
+mysqli_query($connection , "UPDATE posts set likes=$likes + 1 where post_id=$post_id");
+
+mysqli_query($connection , "INSERT into likes(user_id , post_id) values($user_id , $post_id)");
+
+}
+
+if(isset($_POST['unliked'])){
+
+$post_id = $_POST['postId'];
+$user_id = $_POST['userId'];
+
+
+$query = "SELECT * from posts where post_id= $post_id";
+$result= mysqli_query($connection , $query);
+$post = mysqli_fetch_assoc($result);
+$likes = $post['likes'];
+
+
+mysqli_query($connection , "UPDATE posts set likes=$likes - 1 where post_id=$post_id");
+
+mysqli_query($connection , "INSERT into likes(user_id , post_id) values($user_id , $post_id)");
+
+}
+
+?>
+
+
+
 <!-- Page Content -->
 <div class="container">
   <div class="row">
@@ -69,6 +110,17 @@ while($row = mysqli_fetch_assoc($result)){
       </p>
      
       <hr />
+      <div>
+      <span style="margin-right: 20px;" ><i class="far fa-thumbs-up"></i> Likes: 10  </span>
+      <span > <i class="far fa-comment"></i> comment: 2</span>
+      </div>
+      <hr/>
+      <div>
+      <p ><a class='like' style="font-size: 18px; " href="#"><i class="far fa-thumbs-up"></i> Like</a></p>
+      </div>
+      <div>
+      <p ><a class='unlike' style="font-size: 18px; " href="#"><i class="far fa-thumbs-down"></i> Unlike</a></p>
+      </div>
 
 
 <?php
@@ -203,6 +255,54 @@ include "includes/sidebar.php"
       <!-- /.row -->
 
       <hr />
+
+
+
+
+
 <?php
 include "includes/footer.php"
 ?>
+
+<script >
+
+$(document).ready(function(){
+
+  let postId = <?php echo $post_id ?>;
+  let userId = 33;
+
+$('.like').click(function(){
+
+
+ $.ajax({
+  
+  url:"/cms/post.php?p_id=<?php echo $post_id ?>",
+  type:'POST',
+  data:{
+    liked:1,
+    postId: postId,
+    userId: userId,
+
+  }
+ })
+})
+$('.unlike').click(function(){
+
+
+ $.ajax({
+  
+  url:"/cms/post.php?p_id=<?php echo $post_id ?>",
+  type:'POST',
+  data:{
+    unliked:1,
+    postId: postId,
+    userId: userId,
+
+  }
+ })
+})
+
+
+})
+
+</script>
