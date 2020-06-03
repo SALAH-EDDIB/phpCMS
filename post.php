@@ -37,9 +37,10 @@ $post = mysqli_fetch_assoc($result);
 $likes = $post['likes'];
 
 
-mysqli_query($connection , "UPDATE posts set likes=$likes - 1 where post_id=$post_id");
+mysqli_query($connection , "UPDATE posts set likes=$likes- 1 where post_id=$post_id");
 
-mysqli_query($connection , "INSERT into likes(user_id , post_id) values($user_id , $post_id)");
+mysqli_query($connection , "DELETE from  likes where post_id=$post_id and user_id=$user_id" );
+
 
 }
 
@@ -116,11 +117,10 @@ while($row = mysqli_fetch_assoc($result)){
       </div>
       <hr/>
       <div>
-      <p ><a class='like' style="font-size: 18px; " href="#"><i class="far fa-thumbs-up"></i> Like</a></p>
+
+      <p ><a class='<?php echo userLiked($p_id) ? 'unlike' : 'like' ?>' style="font-size: 18px; " href=""><i class="far fa-thumbs-<?php echo userLiked($p_id) ? 'down' : 'up' ?>"></i> <?php echo userLiked($p_id) ? 'Unlike' : 'Like' ?></a></p>
       </div>
-      <div>
-      <p ><a class='unlike' style="font-size: 18px; " href="#"><i class="far fa-thumbs-down"></i> Unlike</a></p>
-      </div>
+     
 
 
 <?php
@@ -269,7 +269,7 @@ include "includes/footer.php"
 $(document).ready(function(){
 
   let postId = <?php echo $post_id ?>;
-  let userId = 33;
+  let userId = <?php echo loggedInUser() ?>;
 
 $('.like').click(function(){
 

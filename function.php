@@ -8,9 +8,18 @@ function redirect($location){
 
 
     header("Location:" . $location);
-    exit;
+    
 
 }
+
+function query($query){
+
+    global $connection;
+
+    return   mysqli_query($connection , $query);
+
+}
+
 function confirmQuery($result) {
     
     global $connection;
@@ -90,6 +99,31 @@ return false ;
 
 
 }
+
+function loggedInUser(){
+
+    if(isLoggedIn()){
+
+        $result = query("SELECT * from users where user_name='{$_SESSION["username"]}'");
+        $user = mysqli_fetch_assoc($result);
+        if(mysqli_num_rows($result) >=1){
+
+            return $user['user_id'];
+        }
+
+    }
+    return false;
+}
+
+function userLiked($post_id = ''){
+
+$result = query( "SELECT * from likes where user_id=".loggedInUser()." AND post_id={$post_id}");
+
+ return mysqli_num_rows($result) >= 1 ? true : false ;
+}
+
+
+
 
 function redirected($direction=null){
 
