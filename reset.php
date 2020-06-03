@@ -6,14 +6,16 @@
 
 
 
-//     if(!isset($_GET['email']) && !isset($_GET['token'])){
+    if(!isset($_GET['email']) && !isset($_GET['token'])){
 
 
-// header('location:index.php');
+header('location:index.php');
 
-//     }
+    }
 
-$token = '84be085740b29df7629f5615345773c5c440b674b8abff68470bedc47e2933a7042a1aeede1725255e2f8fecd6914ed1165c';
+$email=$_GET['email'];
+$token = $_GET['token'];
+
 
 if($stmt = mysqli_prepare($connection , "SELECT user_name , user_email , token from users where token= ?" )){
 
@@ -23,13 +25,38 @@ if($stmt = mysqli_prepare($connection , "SELECT user_name , user_email , token f
     mysqli_stmt_fetch($stmt);
     mysqli_stmt_close($stmt);
 
-    echo $useremail;
+    
 
-   if($_GET['token'] !== $token || $_GET['email'] !== $useremail ){
+//    if($_GET['token'] !== $token || $_GET['email'] !== $useremail ){
 
-    // header('location: index.php');
+//     header('location: index.php');
 
-   }
+//    }
+
+if(isset($_POST['password']) && isset($_POST['confirmPassword'])){
+
+    if($_POST['password'] == $_POST['confirmPassword']){
+    $password = $_POST['password'];
+
+
+    $password = password_hash($password , PASSWORD_BCRYPT , array('cost' => 12));
+
+    if($stmt = mysqli_prepare($connection , "UPDATE users set token='' , user_password='{$password}' where user_email=?")){
+
+     mysqli_stmt_bind_param($stmt , 's' , $email);
+     mysqli_stmt_execute($stmt);
+     
+    if(mysqli_stmt_affected_rows($stmt) >= 1){
+
+        header('location:login.php');
+
+    }
+
+
+    }
+
+    }
+}
 
 
 }
