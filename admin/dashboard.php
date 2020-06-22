@@ -24,36 +24,30 @@
 
 
 // post 
-$query = "select * from posts";
+$query = "select * from posts where post_author = '{$_SESSION['username']}' ";
 $result = mysqli_query($connection , $query);
 $post_counts = mysqli_num_rows($result);
 
 
 
-$query = "select * from posts where post_status = 'draft'";
+$query = "select * from posts where post_status = 'draft' and post_author = '{$_SESSION['username']}'";
 $result = mysqli_query($connection , $query);
 $drift_post_counts = mysqli_num_rows($result);
 
 //  comment 
-$query = "select * from comments";
+$query = "select * from comments where comment_author = '{$_SESSION['username']}' ";
 $result = mysqli_query($connection , $query);
 $comment_counts = mysqli_num_rows($result);
 
 
 
-$query = "select * from comments where comment_status='unapproved'";
+$query = "select * from comments where comment_status='unapproved' and comment_author = '{$_SESSION['username']}'";
 $result = mysqli_query($connection , $query);
 $unapp_comment_counts = mysqli_num_rows($result);
 
 
 
-$query = "select * from users";
-$result = mysqli_query($connection , $query);
-$user_counts = mysqli_num_rows($result);
 
-$query = "select * from users where user_role = 'subscriber'";
-$result = mysqli_query($connection , $query);
-$sub_user_counts = mysqli_num_rows($result);
 
 
 $query = "select * from categories";
@@ -69,7 +63,7 @@ $category_counts = mysqli_num_rows($result);
                 <!-- /.row -->
                 
 <div class="row">
-    <div class="col-lg-3 col-md-6">
+    <div class="col-lg-4 col-md-6">
         <div class="panel panel-primary">
             <div class="panel-heading">
                 <div class="row">
@@ -95,7 +89,7 @@ $category_counts = mysqli_num_rows($result);
             </a>
         </div>
     </div>
-    <div class="col-lg-3 col-md-6">
+    <div class="col-lg-4 col-md-6">
         <div class="panel panel-green">
             <div class="panel-heading">
                 <div class="row">
@@ -120,31 +114,8 @@ $category_counts = mysqli_num_rows($result);
             </a>
         </div>
     </div>
-    <div class="col-lg-3 col-md-6">
-        <div class="panel panel-yellow">
-            <div class="panel-heading">
-                <div class="row">
-                    <div class="col-xs-3">
-                        <i class="fa fa-user fa-5x"></i>
-                    </div>
-                    <div class="col-xs-9 text-right">
 
-
-                    <div class='huge'><?php echo $user_counts?></div>
-                        <div> Users</div>
-                    </div>
-                </div>
-            </div>
-            <a href="users.php">
-                <div class="panel-footer">
-                    <span class="pull-left">View Details</span>
-                    <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
-                    <div class="clearfix"></div>
-                </div>
-            </a>
-        </div>
-    </div>
-    <div class="col-lg-3 col-md-6">
+    <div class="col-lg-4 col-md-6">
         <div class="panel panel-red">
             <div class="panel-heading">
                 <div class="row">
@@ -183,8 +154,7 @@ $category_counts = mysqli_num_rows($result);
       ['Draft Posts', <?php echo $drift_post_counts?>],
       ['Comments', <?php echo $comment_counts?>],
       ['Unpproved Comments', <?php echo $unapp_comment_counts?>],
-      ['Users', <?php echo $user_counts?>],
-      ['subscribers', <?php echo $sub_user_counts?>],
+     
       ['Categories', <?php echo $category_counts?>],
       
      

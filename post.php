@@ -114,14 +114,14 @@ while($row = mysqli_fetch_assoc($result)){
      
       <hr />
       <div>
-      <span style="margin-right: 20px;" ><i class="far fa-thumbs-up"></i> Likes: <?php echo $post_likes ?>   </span>
+      <span  style="margin-right: 20px;" ><i class="far fa-thumbs-up"></i> Likes: <span class='current-likes'> <?php echo $post_likes ?> </span>  </span>
       <span > <i class="far fa-comment"></i> comment: <?php echo $post_comment ?> </span>
       </div>
       <hr/>
 
       <?php if(isLoggedIn()){ ?>
       <div>
-      <p ><a class='<?php echo userLiked($p_id) ? 'unlike' : 'like' ?>' style="font-size: 18px; " href=""><i class="far fa-thumbs-<?php echo userLiked($p_id) ? 'down' : 'up' ?>"></i> <?php echo userLiked($p_id) ? 'Unlike' : 'Like' ?></a></p>
+      <p ><a id ='like-link' class='<?php echo userLiked($p_id) ? 'unlike' : 'like' ?>' style="font-size: 18px; " href="javascript:void(0)"><i class="far fa-thumbs-<?php echo userLiked($p_id) ? 'down' : 'up' ?>"></i> <?php echo userLiked($p_id) ? 'Unlike' : 'Like' ?></a></p>
       </div>
       <?php }else{ ?>
 
@@ -155,8 +155,8 @@ if(isset($_POST['create_comment'])){
 
   $post_id = $_GET['p_id'];
 
-$comment_author = $_POST['comment_author'];
-$comment_email = $_POST['comment_email'];
+$comment_author = $_SESSION['username'];
+$comment_email = $_SESSION['email'];
 $comment_content = $_POST['comment_content'];
 
 $query = "insert into comments (comment_post_id,  comment_author,  comment_email,comment_content,  comment_status ,comment_date )  ";
@@ -185,15 +185,8 @@ $update_count = mysqli_query($connection , $query);
               <div class="well">
             <h4>Leave a Comment:</h4>
             <form  action='' method='post' role="form">
-              <div class="form-group">
-              <label for="comment_author">Author</label>
-                <input type="text" class="form-control"  name="comment_author" required>             
-              </div>
-              <div class="form-group">
-              <label for="comment_email">Email</label>
+           
 
-                <input type="email" class="form-control"  name="comment_email" required>             
-              </div>
             
               <div class="form-group">
               <label for="comment">Your Comment</label>
@@ -286,8 +279,16 @@ $(document).ready(function(){
   let postId = <?php echo $post_id ?>;
   let userId = <?php echo loggedInUser() ?>;
 
-$('.like').click(function(){
+  $(document).on('click', "a.like", function() {
 
+$('#like-link').removeClass('like')
+  $('#like-link').addClass('unlike')
+  
+  $('#like-link').html('<i class="far fa-thumbs-down"></i> Unlike')
+  
+  $('.current-likes').html(function(i , origtext){
+   return  parseInt(origtext) + 1
+  })
 
  $.ajax({
   
@@ -301,8 +302,17 @@ $('.like').click(function(){
   }
  })
 })
-$('.unlike').click(function(){
 
+$(document).on('click', "a.unlike", function() {
+
+  $('#like-link').removeClass('unlike').addClass('like')
+ 
+ $('#like-link').html('<i class="far fa-thumbs-up"></i> Like')
+
+ $('.current-likes').html(function(i , origtext){
+   return  parseInt(origtext) - 1
+  })
+  
 
  $.ajax({
   

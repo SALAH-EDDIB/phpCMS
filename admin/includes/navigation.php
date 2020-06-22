@@ -37,7 +37,7 @@
                     </li>
             
                     <li>
-                        <a href="javascript:;" data-toggle="collapse" data-target="#posts"><i class="fa fa-fw fa-arrows-v"></i> Posts <i class="fa fa-fw fa-caret-down"></i></a>
+                        <a href="javascript:;" data-toggle="collapse" data-target="#posts"><i class="fa fa-file"></i> Posts <i class="fa fa-fw fa-caret-down"></i></a>
                         <ul id="posts" class="collapse">
                             <li>
                                 <a href="posts.php">View All posts</a>
@@ -48,13 +48,13 @@
                         </ul>
                     </li>
                     <li>
-                        <a href="categories.php"><i class="fa fa-fw fa-wrench"></i> Categories</a>
+                        <a href="categories.php"><i class="fa  fa-list"></i> Categories</a>
                     </li>
                     <?php   if($_SESSION['role'] !== 'admin'):?>
 
 <?php   else:?>
    <li>
-                        <a href="javascript:;" data-toggle="collapse" data-target="#demo1"><i class="fa fa-fw fa-arrows-v"></i> Users <i class="fa fa-fw fa-caret-down"></i></a>
+                        <a href="javascript:;" data-toggle="collapse" data-target="#demo1"><i class="fa fa-users"></i> Users <i class="fa fa-fw fa-caret-down"></i></a>
                         <ul id="demo1" class="collapse">
                             <li>
                                 <a href="users.php">view All Users</a>
@@ -67,10 +67,10 @@
 <?php   endif;?>
                  
                     <li >
-                        <a href="comments.php"><i class="fa fa-fw fa-file"></i> Comments</a>
+                        <a href="comments.php"><i class="fa fa-comments"></i></i> Comments</a>
                     </li>
                     <li>
-                        <a href="profile.php"><i class="fa fa-fw fa-dashboard"></i> Profile</a>
+                        <a href="profile.php"><i class="fa fa-user"></i> Profile</a>
                     </li>
                 </ul>
             </div>

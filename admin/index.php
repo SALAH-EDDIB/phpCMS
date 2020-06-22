@@ -1,4 +1,12 @@
-<?php include 'includes/header.php'?> 
+<?php include 'includes/header.php';
+
+if($_SESSION['role'] !== 'admin'){
+header('location:dashboard.php');
+}
+
+?> 
+
+
     <div id="wrapper">
 
         <!-- Navigation -->

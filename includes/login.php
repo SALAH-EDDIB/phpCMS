@@ -41,6 +41,7 @@ if(password_verify($user_password , $db_user_password)){
     $_SESSION['username'] = $db_user_name ;
     $_SESSION['firstname'] = $db_user_firstname ;
     $_SESSION['lastname'] = $db_user_lastname ;
+    $_SESSION['email'] = $db_user_email;
     $_SESSION['role'] = $db_user_role ;
 
 }else{
