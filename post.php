@@ -79,6 +79,8 @@ while($row = mysqli_fetch_assoc($result)){
   $post_date = $row['post_date'];
   $post_image = $row['post_image'];
   $post_content = $row['post_content'];
+  $post_likes = $row['likes'];
+  $post_comment = $row['post_comment_count'];
 
 ?>
 
@@ -112,18 +114,25 @@ while($row = mysqli_fetch_assoc($result)){
      
       <hr />
       <div>
-      <span style="margin-right: 20px;" ><i class="far fa-thumbs-up"></i> Likes: 10  </span>
-      <span > <i class="far fa-comment"></i> comment: 2</span>
+      <span style="margin-right: 20px;" ><i class="far fa-thumbs-up"></i> Likes: <?php echo $post_likes ?>   </span>
+      <span > <i class="far fa-comment"></i> comment: <?php echo $post_comment ?> </span>
       </div>
       <hr/>
-      <div>
 
+      <?php if(isLoggedIn()){ ?>
+      <div>
       <p ><a class='<?php echo userLiked($p_id) ? 'unlike' : 'like' ?>' style="font-size: 18px; " href=""><i class="far fa-thumbs-<?php echo userLiked($p_id) ? 'down' : 'up' ?>"></i> <?php echo userLiked($p_id) ? 'Unlike' : 'Like' ?></a></p>
       </div>
-     
+      <?php }else{ ?>
+
+        <div>
+      <p style="font-size: 18px; " >You need to <a href="login.php">login </a> to like or comment</p>
+      </div>
 
 
 <?php
+
+      }
 
 
 }
@@ -170,7 +179,10 @@ $update_count = mysqli_query($connection , $query);
       
 
           <!-- Comments Form -->
-          <div class="well">
+          
+
+          <?php if(isLoggedIn()){ ?>
+              <div class="well">
             <h4>Leave a Comment:</h4>
             <form  action='' method='post' role="form">
               <div class="form-group">
@@ -191,6 +203,8 @@ $update_count = mysqli_query($connection , $query);
               <button type="submit" name="create_comment" class="btn btn-primary">Submit</button>
             </form>
           </div>
+      <?php }else{ ?>
+    
 
           <hr />
 
@@ -200,6 +214,7 @@ $update_count = mysqli_query($connection , $query);
 
 
           <?php
+      }
 $post_id = $_GET['p_id'];
 
 $query = "select * from comments where comment_post_id= {$post_id} ";

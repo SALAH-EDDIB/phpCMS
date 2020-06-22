@@ -37,7 +37,7 @@ while($row = mysqli_fetch_assoc($login)){
 
 if(password_verify($user_password , $db_user_password)){
     header('location: ../admin');
-
+    $_SESSION['user_id'] = $db_user_id;
     $_SESSION['username'] = $db_user_name ;
     $_SESSION['firstname'] = $db_user_firstname ;
     $_SESSION['lastname'] = $db_user_lastname ;

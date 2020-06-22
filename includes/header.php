@@ -1,7 +1,7 @@
 <?php  session_start()?>
 
 
-<?php include "function.php"?>
+<?php include "admin/functions.php"?>
 
 <!DOCTYPE html>
 <html lang="en">

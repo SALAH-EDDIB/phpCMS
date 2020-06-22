@@ -12,7 +12,7 @@ include "includes/navigation.php"
     <!-- Blog Entries Column -->
     <div class="col-md-8">
 
-
+   
 
 <?php
 
@@ -34,6 +34,12 @@ if($count == 0){
 
 }else{
   
+  ?>
+   <h1 class="page-header">
+        Page Heading
+        <small>Secondary Text</small>
+      </h1>
+  <?php
 
 
 while($row = mysqli_fetch_assoc($result)){
@@ -47,10 +53,7 @@ while($row = mysqli_fetch_assoc($result)){
 ?>
 
     
-  <h1 class="page-header">
-        Page Heading
-        <small>Secondary Text</small>
-      </h1>
+ 
       <!-- First Blog Post -->
       <h2>
         <a href="#"><?php echo $post_title ?></a>
@@ -85,7 +88,10 @@ while($row = mysqli_fetch_assoc($result)){
 
 ?>
 
-
+<h1 class="page-header">
+        Page Heading
+        <small>Secondary Text</small>
+      </h1>
 
 <?php
 $query = "select * from posts";
@@ -102,10 +108,7 @@ while($row = mysqli_fetch_assoc($result)){
 ?>
 
     
-  <h1 class="page-header">
-        Page Heading
-        <small>Secondary Text</small>
-      </h1>
+  
       <!-- First Blog Post -->
       <h2>
         <a href="#"><?php echo $post_title ?></a>
