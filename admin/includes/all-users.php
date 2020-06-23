@@ -11,7 +11,7 @@
                             </thead>
                             <tbody>
 
-
+<img  width='20'  src="../img/" alt="">
                             <?php
 $query = "select * from users";
 $result = mysqli_query($connection , $query);
@@ -27,13 +27,14 @@ $user_firstname = $row['user_firstname'];
 $user_lastname = $row['user_lastname'];
 $user_email = $row['user_email'];
 $user_role = $row['user_role'];
+$user_image = $row['user_image'];
 
 
 
 
 echo '<tr>';
-echo"<th>$user_id</th>";
-echo"<th>$user_name</th>";
+echo"<th> $user_id</th>";
+echo"<th><img  width='20'  src='../img/$user_image' >$user_name</th>";
 echo"<th>$user_firstname</th>";
 echo"<th>$user_lastname</th>";
 echo"<th>$user_email</th>";

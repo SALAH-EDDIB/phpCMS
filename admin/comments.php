@@ -25,8 +25,9 @@ if(isset($_GET['source'])){
 }
 switch ($source ) {
 
-       
-    
+       case 'my' :
+        include 'includes/post-comments.php';
+        break;
     default:
         include 'includes/all-comments.php';
         break;

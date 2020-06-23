@@ -65,10 +65,23 @@
                         </ul>
                     </li>
 <?php   endif;?>
-                 
-                    <li >
+<?php   if($_SESSION['role'] == 'admin'):?>
+ <li >
                         <a href="comments.php"><i class="fa fa-comments"></i></i> Comments</a>
                     </li>
+<?php   else:?>
+                        <li>
+                        <a href="javascript:;" data-toggle="collapse" data-target="#comment"><i class="fa fa-comments"></i> Comments <i class="fa fa-fw fa-caret-down"></i></a>
+                        <ul id="comment" class="collapse">
+                            <li>
+                                <a href="comments.php">My Comment</a>
+                            </li>
+                            <li>
+                                <a href="comments.php?source=my">Comment On My Posts</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <?php   endif;?>
                     <li>
                         <a href="myprofile.php"><i class="fa fa-user"></i> Profile</a>
                     </li>

@@ -8,25 +8,17 @@
         <th>date</th>
         <th>status</th>
         <th>In Responde to </th>
-        <?php if($_SESSION['role'] == 'admin' ) { ?>
         <th>Approve</th>
         <th>Unapprove</th>
-        <?php }?>
+        
         
     </tr>
 </thead>
 <tbody>
 <?php
-if(isset($_GET['p_id'])){
-    $p_id = $_GET['p_id'];
-$post = "where comment_post_id = $p_id ";
-}else if($_SESSION['role'] !== 'admin' ) {
-    $post = "where comment_author = '{$_SESSION['username']}' ";
-}else {
-    $post = "";
-}
 
-$query = "select * from comments $post ";
+
+$query = "select * from comments where comment_post_author = '{$_SESSION['username']}' ";
 $result = mysqli_query($connection , $query);
 
 
@@ -52,7 +44,7 @@ echo"<th>$comment_email</th>";
 echo "<th>$comment_date</th>";
 echo "<th>$comment_status</th>";
 
-$query = "select * from posts where post_id =$comment_post_id ";
+$query = "select * from posts where post_id = $comment_post_id ";
 $results = mysqli_query($connection , $query);
 
 while($row = mysqli_fetch_assoc($results)){
@@ -68,10 +60,9 @@ $path = "p_id=$p_id&";
 }else {
     $path = '';
 }
-if($_SESSION['role'] == 'admin' ) {
+
 echo "<th><a href='comments.php?{$path}approve={$comment_id}'>Approve</a></th>";
 echo "<th><a href='comments.php?{$path}unapprove={$comment_id}'>Unapprove</a></th>";
-}
 echo "<th><a href='comments.php?{$path}delete={$comment_id}'>Delete</a></th>";
 
 echo "</tr>";

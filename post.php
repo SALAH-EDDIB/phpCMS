@@ -161,12 +161,20 @@ if(isset($_POST['create_comment'])){
 
   $post_id = $_GET['p_id'];
 
+  $post_query = "select * from posts where post_id = $post_id ";
+
+  $result = mysqli_query($connection ,  $post_query );
+
+  $post_row = mysqli_fetch_assoc($result);
+
+  $comment_post_author =  $post_row['post_author'];
+
 $comment_author = $_SESSION['username'];
 $comment_email = $_SESSION['email'];
 $comment_content = $_POST['comment_content'];
 
-$query = "insert into comments (comment_post_id,  comment_author,  comment_email,comment_content,  comment_status ,comment_date )  ";
-$query .= " values ({$post_id} ,'{$comment_author}','{$comment_email}','{$comment_content}','unapproved' , now() ) ";
+$query = "insert into comments (comment_post_id, comment_post_author  ,  comment_author,  comment_email , comment_content,  comment_status ,comment_date )  ";
+$query .= " values ({$post_id} ,'{$comment_post_author}' ,'{$comment_author}','{$comment_email}','{$comment_content}','unapproved' , now() ) ";
 
 
 $creat_comment = mysqli_query($connection , $query);
