@@ -70,7 +70,7 @@
                         <a href="comments.php"><i class="fa fa-comments"></i></i> Comments</a>
                     </li>
                     <li>
-                        <a href="profile.php"><i class="fa fa-user"></i> Profile</a>
+                        <a href="myprofile.php"><i class="fa fa-user"></i> Profile</a>
                     </li>
                 </ul>
             </div>

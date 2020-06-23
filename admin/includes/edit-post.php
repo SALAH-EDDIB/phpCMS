@@ -10,7 +10,7 @@ while($row = mysqli_fetch_assoc($result)){
 
 
 $post_title = $row['post_title'];
-$post_author = $row['post_author'];
+
 $post_date = $row['post_date'];
 $post_image = $row['post_image'];
 $post_status = $row['post_status'];
@@ -22,7 +22,7 @@ $post_content = $row['post_content'];
 
 if(isset($_POST['update_post'])){
 $post_title = $_POST['title'];
-$post_author = $_POST['author'];
+
 
 $post_image = $_FILES['image']['name'];
 $post_image_temp = $_FILES['image']['tmp_name'];
@@ -39,7 +39,7 @@ move_uploaded_file($post_image_temp , "../img/$post_image");
 $query = "update posts set ";
 $query .= "post_title = '{$post_title}', ";
 $query .= "category_id = '{$post_category_id}', ";
-$query .= "post_author = '{$post_author}', ";
+
 $query .= "post_date = now(), ";
 if($post_image){
     $query .= "post_image = '{$post_image}', ";
@@ -96,11 +96,9 @@ while($row = mysqli_fetch_assoc($result)){
 </div>
 
 
-<div class="form-group">
-<label for="author">Post Author </label>
-<input type="text" value="<?php echo $post_author?>" class="form-control" name="author" required>
-</div>
-
+<?php
+if($_SESSION['role'] == 'admin'){
+    ?>
 <div class="form-group">
 <label for="post_status">Post Status </label>
 <select name="post_status" value="<?php echo $post_status?>" class="form-control" >
@@ -110,7 +108,9 @@ while($row = mysqli_fetch_assoc($result)){
 </select>
 
 </div>
+<?php
 
+}?>
 <div class="form-group">
 <label for="author">Post Image </label><br>
 <img width='100'  src="../img/<?php echo $post_image?>" alt="">

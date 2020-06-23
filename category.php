@@ -35,10 +35,18 @@ if(mysqli_stmt_num_rows($stmt) === 0 ){
 }else{
 
   ?>
-      <h1 class="page-header">
-        Page Heading
-        <small>Secondary Text</small>
-      </h1>
+      <h2 class="page-header">
+       <?php
+        $query = "select * from categories where cat_id = $cat_id";
+        $result = mysqli_query($connection , $query);
+        
+        while($row = mysqli_fetch_assoc($result)){
+        
+            $cat_title = $row['cat_title'];
+            echo $cat_title . '<small> Posts </small>' ;
+        }
+       ?>
+      </h2>
   <?php
 
 while(mysqli_stmt_fetch($stmt)){

@@ -1,8 +1,15 @@
 <?php include 'includes/header.php'?> 
+<?php if($_SESSION['role'] !== 'admin'){
+
+    header('location:dashboard.php');
+}?> 
+
     <div id="wrapper">
 
         <!-- Navigation -->
        <?php include 'includes/navigation.php'?> 
+
+
 
         <div id="page-wrapper">
 
@@ -12,8 +19,7 @@
                 <div class="row">
                     <div class="col-lg-12">
                         <h1 class="page-header">
-                            Blank Page
-                            <small>Subheading</small>
+                            All Users
                         </h1>
 
 <?php

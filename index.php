@@ -48,8 +48,8 @@ if(mysqli_num_rows($result) == 0 ){
 
   ?>
   <h1 class="page-header">
-        Page Heading
-        <small>Secondary Text</small>
+        Home Page
+       
       </h1>
   <?php
 

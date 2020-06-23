@@ -35,10 +35,10 @@ if($count == 0){
 }else{
   
   ?>
-   <h1 class="page-header">
-        Page Heading
-        <small>Secondary Text</small>
-      </h1>
+   <h2 class="page-header">
+       <small> Search For </small> '<?php echo $search; ?>'
+        
+      </h2>
   <?php
 
 

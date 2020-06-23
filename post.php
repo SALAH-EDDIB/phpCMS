@@ -54,10 +54,8 @@ mysqli_query($connection , "DELETE from  likes where post_id=$post_id and user_i
     <!-- Blog Entries Column -->
     <div class="col-md-8">
 
-    <h1 class="page-header">
-        Page Heading
-        <small>Secondary Text</small>
-      </h1>
+   
+  
 
   <?php
 
@@ -100,7 +98,15 @@ while($row = mysqli_fetch_assoc($result)){
       <p>
         <span class="glyphicon glyphicon-time"></span> <?php echo $post_date ?>
       </p>
+      <?php if(isLoggedIn()){ 
+        
+        if($_SESSION['username'] == $post_author){
+        ?>
+
+
+
       <div> <i class="fas fa-cog"></i><a href="admin/posts.php?source=edit_post&p_id=<?php echo $p_id?>"> Edit</a></div>
+      <?php } } ?>
       <hr />
       <img
         class="img-responsive"
@@ -224,6 +230,13 @@ $comment_author = $row['comment_author'];
 $comment_date = $row['comment_date'];
 $comment_content = $row['comment_content'];
 
+$query = "select * from users where user_name= '{$comment_author}' ";
+
+$user_result = mysqli_query($connection , $query);
+
+$user_row = mysqli_fetch_assoc($user_result);
+
+$user_image = $user_row['user_image']
 
 ?>
 
@@ -232,9 +245,12 @@ $comment_content = $row['comment_content'];
           <div class="media">
             <a class="pull-left" href="#">
               <img
+              width='50' 
+
                 class="media-object"
-                src="http://placehold.it/64x64"
+                src="img/<?php echo $user_image ?>"
                 alt=""
+                style='border-radius: 50%;'
               />
             </a>
             <div class="media-body">

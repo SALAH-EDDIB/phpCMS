@@ -15,6 +15,7 @@ while($row = mysqli_fetch_assoc($result)){
 
     
     $user_name = $row['user_name'];
+    $user_image = $row['user_image'];
     $user_firstname = $row['user_firstname'];
     $user_lastname = $row['user_lastname'];
     $user_email = $row['user_email'];
@@ -28,9 +29,13 @@ if(isset($_POST['edit_user'])){
     $user_lastname = $_POST['user_lastname'];
     $user_name = $_POST['user_name'];
     $user_role = $_POST['user_role'];
+    $user_image = $_FILES['image']['name'];
+$user_image_temp = $_FILES['image']['tmp_name'];
     
     $user_email = $_POST['user_email'];
     $user_password = $_POST['user_password'];
+
+    move_uploaded_file($user_image_temp , "../img/$user_image");
 
     $user_password = password_hash($user_password , PASSWORD_BCRYPT , array('cost' => 12));
 
@@ -39,9 +44,11 @@ if(isset($_POST['edit_user'])){
 $query = "update users set ";
 $query .= "user_firstname = '{$user_firstname}', ";
 $query .= "user_lastname = '{$user_lastname}', ";
+ if($_SESSION['role'] == 'admin') {
 $query .= "user_role = '{$user_role}', ";
+ }
 
-
+$query .= "user_image = '{$user_image}', ";
 $query .= "user_name = '{$user_name}', ";
 $query .= "user_email = '{$user_email}', ";
 $query .= "user_password = '{$user_password}' ";
@@ -80,8 +87,7 @@ header('location: users.php');
                 <div class="row">
                     <div class="col-lg-12">
                         <h1 class="page-header">
-                            Blank Page
-                            <small>Subheading</small>
+                            Edit Profile
                         </h1>
 
 
@@ -94,6 +100,16 @@ header('location: users.php');
 
 
                 <form action="" method="post" enctype="multipart/form-data">
+
+                <div class="form-group">
+<label for="author">Post Image </label><br>
+<img width='100'  src="../img/<?php echo $user_image ?>" alt="">
+<br>
+<br>
+
+<input type="file"  name="image">
+</div>
+
 
 <div class="form-group">
 <label for="title">FirstName </label>
@@ -111,7 +127,7 @@ header('location: users.php');
 <label for="author">Username </label>
 <input type="text" class="form-control" value="<?php echo $user_name?>" name="user_name">
 </div>
-
+<?php if($_SESSION['role'] == 'admin') {?>
 <div class="form-group">
 <label for="user_role">Role </label>
 <select name="user_role" class="form-control" >
@@ -119,7 +135,7 @@ header('location: users.php');
 <option <?php if($user_role == "subscriber" ) echo 'selected' ?> value="subscriber">Subscriber</option>
 </select>
 </div>
-
+<?php } ?>
 
 
 <div class="form-group">
