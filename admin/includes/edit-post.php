@@ -47,7 +47,9 @@ if($post_image){
 
 $query .= "post_content = '{$post_content}', ";
 $query .= "post_tags = '{$post_tags}', ";
+if($_SESSION['role'] == 'admin'){
 $query .= "post_status = '{$post_status}' ";
+}
 $query .= "where post_id = '{$post_id}' ";
 
 $update_post = mysqli_query($connection , $query);
