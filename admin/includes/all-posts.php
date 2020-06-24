@@ -65,6 +65,8 @@ if(isset($_POST['checkBoxArray'])){
 
 <table class='table table-hover'>
 
+<?php if($_SESSION['role']  == 'admin' ) {?>
+
 <div id='bulkOptionContainer' class='col-xs-4'>
 
 <select class='form-control' name="bulk_option" id="">
@@ -80,7 +82,7 @@ if(isset($_POST['checkBoxArray'])){
     <input type="submit" name='submit' class='btn btn-success' value="Apply">
     <a class='btn btn-primary' href="posts.php?source=add_post">Add New</a>
 </div>
-
+<?php }?>
 <thead>
     <tr>
         <th><input type="checkbox"  id="selectAllBoxes"></th>
